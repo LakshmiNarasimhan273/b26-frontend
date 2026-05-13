@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../api/apiInstance";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -10,12 +11,19 @@ const Register = () => {
         password: "",
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(registerData);
+        try{
+            // api logics
+            // http://localhost:8081/auth/register
+            await api.post("/auth/register", registerData);
+            alert("Registration successful");
 
-        navigate("/login");
+            navigate("/login");
+        }catch(err){
+            alert(err);
+        }
     };
 
     return (

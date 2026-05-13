@@ -1,12 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Home = () => {
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+
+  const decoded = token ? jwtDecode(token) : null;
+
   const handleLogout = () => {
+    localStorage.removeItem("token");
     navigate("/login");
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -21,6 +27,7 @@ const Home = () => {
             <h1 className="text-2xl font-bold">
               Task Manager
             </h1>
+            <p className="text-sm text-gray-600">Welcome back, {decoded?.username}</p>
           </div>
 
           {/* Middle */}

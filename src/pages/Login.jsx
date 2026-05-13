@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../api/apiInstance";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -9,12 +10,21 @@ const Login = () => {
         password: "",
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(loginData);
-
-        navigate("/home");
+        try{
+            // login logic
+            const response = await api.post("/auth/login", loginData);
+                
+            // Token Handling
+            const token = response.data.token;
+            localStorage.setItem("token", token);   
+            navigate("/");  
+        }catch(err){
+            alert(err);
+        }
+        
     };
 
     return (
