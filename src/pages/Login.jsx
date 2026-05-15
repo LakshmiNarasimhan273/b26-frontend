@@ -49,7 +49,9 @@ const Login = () => {
                         Login
                     </h2>
 
-                    <form onSubmit={handleSubmit} className="space-y-5">
+                    <form 
+                    onSubmit={handleSubmit}
+                     className="space-y-5">
 
                         <div>
                             <label className="block mb-2 font-medium">
